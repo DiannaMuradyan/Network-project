@@ -1,1 +1,2 @@
-# Network-project
+# Server-Clients Quiz Game in C
+The Client-Server Quiz Game is a networked application developed in the C programming language. It consists of a server that hosts a quiz by sending questions to connected clients, and clients that interact with the server by answering these questions. The quiz includes multiple-choice  questions. The server randomly selects a specified number of questions for each client (e.g., five questions), then the server calculates and sends the client's total score. This project enhances understanding of network programming, file handling, and multithreading in C.
