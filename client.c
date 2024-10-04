@@ -13,7 +13,7 @@
 #define index 6
 int socket_fd;
 
-void* kardal(void* args){
+void* thread_reading(void* args){
 	char buf[MAX_BUF_SIZE];
 	int ind = 0;
 	while(ind < index)
@@ -31,7 +31,7 @@ void* kardal(void* args){
 }
 
 
-void* grel(void* args){
+void* thread_writing(void* args){
 	char buf[MAX_BUF_SIZE];
 	int ind = 0;
 	while(ind < index-1)
@@ -94,8 +94,8 @@ int main()
 	write(socket_fd,command,strlen(command));
 
 
-	pthread_create(&th_write,NULL,grel,NULL);
-	pthread_create(&th_read,NULL,kardal,NULL);
+	pthread_create(&th_write,NULL,thread_writing,NULL);
+	pthread_create(&th_read,NULL,thread_reading,NULL);
 
 	pthread_join(th_write,NULL);
 	pthread_join(th_read,NULL);
