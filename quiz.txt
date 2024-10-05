@@ -23,4 +23,7 @@ A)Milk
 B)Wax
 C)Juice
 D)Honey/
+6.What country is the biggest?/
+7.The capital of Italy?/
+8.The highest mountain in the world?/A,A,B,C,D,Russia,Rome,Everest,
 
