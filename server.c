@@ -78,12 +78,12 @@ void* server_thread(void* args){
             q_number = rand()%8;
             if(write(user[id].fd,q_arr[q_number].quest,strlen(q_arr[q_number].quest)) <= 0)
             {
-                perror("connection lost client");
+                perror("lost connection with client");
                 pthread_exit(NULL);
             }
             if(read(user[id].fd,ans,20) <= 0)
             {
-                perror("connection lost client");
+                perror("lost connection with client");
                 pthread_exit(NULL);
             }
 
@@ -125,7 +125,7 @@ int main()
     int socket_fd = socket(AF_INET,SOCK_STREAM,0);
     if(socket_fd == -1)
 	{
-	    perror("failed socket : ");
+	    perror("failed socket");
 	    exit(1);
 	}
 
@@ -155,7 +155,7 @@ int main()
 	int bind_s = bind(socket_fd,(struct sockaddr*)&server,sizeof(server)); 
 	if(bind_s == -1)
 		{
-			perror("failed bind : ");
+			perror("failed bind");
 			exit(1);
 		}	
 	int lis = listen(socket_fd,SOMAXCONN);
