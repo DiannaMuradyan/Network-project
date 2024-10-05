@@ -36,7 +36,7 @@ void* thread_writing(void* args){
 	int ind = 0;
 	while(ind < index-1)
 		{
-            memset(buf,0,MAX_BUF_SIZE);
+                        memset(buf,0,MAX_BUF_SIZE);
 			fgets(buf,MAX_BUF_SIZE,stdin);
 			if(write(socket_fd,buf,strlen(buf)) < 0)
 			{
@@ -55,7 +55,7 @@ int main()
 	socket_fd = socket(AF_INET,SOCK_STREAM,0);
 	if(socket_fd == -1)
 		{
-			perror("failed socket");
+			perror("socket");
 			exit(1);
 		}
 
@@ -67,24 +67,24 @@ int main()
 
 	int optval = 1;
 
-	if(setsockopt(socket_fd,SOL_SOCKET,SO_REUSEADDR,&optval,sizeof(optval)))
-    {
-        perror("sockopt_addr");
-        exit(1);
-    }
+        if(setsockopt(socket_fd,SOL_SOCKET,SO_REUSEADDR,&optval,sizeof(optval)))
+		{
+        		perror("sockopt_addr");
+       			 exit(1);
+    		}
 
-    if(setsockopt(socket_fd,SOL_SOCKET,SO_REUSEPORT,&optval,sizeof(optval)))
-    {
-        perror("sockopt_port");
-        exit(1);
-    }
+        if(setsockopt(socket_fd,SOL_SOCKET,SO_REUSEPORT,&optval,sizeof(optval)))
+    		{
+        		perror("sockopt_port");
+        		exit(1);
+    		}
 
 	int con = connect(socket_fd,(struct sockaddr*)&client,sizeof(client));
 	if(con < 0)
 		{
-			perror("failed con");
+			perror("connect");
 			exit(1);
-        }
+                }
 	char command[MAX_BUF_SIZE];
 	memset(command,0,sizeof(command));
 	printf("You will be given 5 quiestions during the quiz.\nAt the end you will see your score.\nGood luck!\n\n");
