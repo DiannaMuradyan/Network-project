@@ -75,7 +75,7 @@ void* server_thread(void* args){
         while(q_count < CLIENT_QUEST_COUNT)
         {
             memset(ans,0,20);
-            q_number = rand()%5;
+            q_number = rand()%8;
             if(write(user[id].fd,q_arr[q_number].quest,strlen(q_arr[q_number].quest)) <= 0)
             {
                 perror("connection lost client");
