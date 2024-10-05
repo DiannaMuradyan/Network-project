@@ -14,36 +14,34 @@
 #define PORT 3367
 #define MAX_BUF_SIZE 1024
 #define MAX_CLIENT_COUNT 10
-#define Q_COUNT 5
+#define Q_COUNT 8
 #define CLIENT_QUEST_COUNT 5
 #define MAX_QUEST_SIZE 200
 
 typedef struct{
     pthread_t th;
-	int fd;
+    int fd;
 }th_create;
 
 typedef struct{
     char quest[MAX_QUEST_SIZE];
-    char answer;
+    char answer[20];
 }questions;
 
 FILE* quiz;
-FILE* quiz_ans;
 char file[1024];
-char ans_file[100];
 th_create user[MAX_CLIENT_COUNT]; 
 int i;
-
+char* answers;
 
 questions q_arr[Q_COUNT];
-
 
 void parsing_questions(){
     char* token = file;
     int ind=0;
     while ((token = strtok(token,"/"))){
         strncpy(q_arr[ind].quest,token,strlen(token));
+	answers = token;
         ++ind;
         token = strtok(NULL,"\0");
     }
@@ -51,11 +49,10 @@ void parsing_questions(){
 
 
 void parsing_answers(){
-    char* token = ans_file;
+    char* token = answers;
     int ind=0;
-    char* tmp;
     while ((token = strtok(token,","))){
-        q_arr[ind].answer = *token;
+     	strncpy(q_arr[ind].answer,token,strlen(token));
         ++ind;
         token = strtok(NULL,"\0");
     }
@@ -74,29 +71,28 @@ void* server_thread(void* args){
     if(strncmp(command,"START",strlen("START")) == 0)
     {
         int q_count = 0;
-        char ans[2];
+        char ans[20];
         while(q_count < CLIENT_QUEST_COUNT)
         {
-            memset(ans,0,2);
+            memset(ans,0,20);
             q_number = rand()%5;
             if(write(user[id].fd,q_arr[q_number].quest,strlen(q_arr[q_number].quest)) <= 0)
             {
                 perror("connection lost client");
                 pthread_exit(NULL);
             }
-            if(read(user[id].fd,ans,2) <= 0)
+            if(read(user[id].fd,ans,20) <= 0)
             {
                 perror("connection lost client");
                 pthread_exit(NULL);
             }
 
-            if(strncmp(&q_arr[q_number].answer,ans,1) == 0)
+            if(strncmp(q_arr[q_number].answer,ans,strlen(token) == 0)
             {
                 ++score;
             }
             ++q_count;
         }
-
     }
     else
     {
@@ -121,27 +117,17 @@ int main()
     fread(file,1,sizeof(file),quiz);
     fseek(quiz,0,SEEK_SET);
 
-    quiz_ans = fopen("quiz_ans.txt","r");
-    if(quiz_ans == NULL)
-    {
-        perror("fopen quiz_ans.txt");
-        exit(1);
-    }
-
-    fread(ans_file,1,sizeof(ans_file),quiz_ans);
-    fseek(quiz_ans,0,SEEK_SET);
-
     parsing_questions();
     parsing_answers();
 
     srand(time(NULL));
 
-	int socket_fd = socket(AF_INET,SOCK_STREAM,0);
-	if(socket_fd == -1)
-		{
-			perror("failed socket : ");
-			exit(1);
-		}
+    int socket_fd = socket(AF_INET,SOCK_STREAM,0);
+    if(socket_fd == -1)
+	{
+	    perror("failed socket : ");
+	    exit(1);
+	}
 
     int optval = 1;
 
@@ -201,6 +187,5 @@ int main()
     for(int j=0;j < i ;++j)
     {
         pthread_join(user[i].th,NULL);
-    }
-	
+    }	
 }
