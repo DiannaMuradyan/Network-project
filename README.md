@@ -3,3 +3,4 @@ The Client-Server Quiz Game is a networked application developed in the C progra
 
 P.S.
 Use gcc server.c -o server  and  gcc client.c -o client  in different terminals.
+if you want to connect with another PC as client,change the lookback IP address- 127.0.0.1 to your local IP address(prompt ifconfig in terminal to see your local IP address).
