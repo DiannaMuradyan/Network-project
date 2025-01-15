@@ -93,5 +93,6 @@ int main()
     free(file);
     free(q_arr);
     free(answers);
+    fclose(quiz);
     return 0;
 }
