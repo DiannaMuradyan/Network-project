@@ -23,6 +23,7 @@ This project demonstrates concepts of **socket programming**, **multithreading**
 ---
 
 ## 📂 Project Structure
+```
 .
 ├── server.c        # Server logic (sockets, threading, quiz handling)
 ├── servermain.c    # Main entry point for server
@@ -30,7 +31,7 @@ This project demonstrates concepts of **socket programming**, **multithreading**
 ├── clientmain.c    # Main entry point for client
 ├── quiz.txt        # Quiz questions & answers (editable)
 └── README.md       # Documentation
-
+```
 
 ---
 
