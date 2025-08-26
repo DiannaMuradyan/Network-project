@@ -1,6 +1,26 @@
-# Server-Clients Quiz Game in C
-The Client-Server Quiz Game is a networked application developed in the C programming language. It consists of a server that hosts a quiz by sending questions to connected clients, and clients that interact with the server by answering these questions. The quiz includes multiple-choice  questions. Questions and answers are separated by delimiters` "/" and "," for easy parsing .You can add as mush questions as you want in quiz.txt. The server randomly selects a specified number of questions for each client (e.g., five questions), then the server calculates and sends the client's total score. This project enhances understanding of network programming, file handling, and multithreading in C.
+# 📝 Server-Clients Quiz Game in C
 
-P.S.
-Use gcc -o server  server.c servermain.c and  gcc -o client client.c clientmain.c in different terminals.
-if you want to connect with another PC as client,change the lookback IP address- 127.0.0.1 to your local IP address(prompt ifconfig in terminal to see your local IP address).
+The **Server-Clients Quiz Game** is a networked application written in **C** that allows multiple clients to connect to a server and play a multiple-choice quiz.  
+
+The server reads questions from a `quiz.txt` file, sends them to the connected clients, evaluates their answers, and then sends back the total score.  
+
+This project demonstrates concepts of **socket programming**, **multithreading**, and **file handling** in C.
+
+---
+
+## 🚀 Features
+
+- Server handles multiple clients simultaneously using **multithreading**.  
+- Questions and answers stored in `quiz.txt` (customizable).  
+- Supports **multiple-choice questions (MCQs)**.  
+- Questions and answers are parsed using delimiters:
+  - `/` separates question from answer choices.  
+  - `,` separates individual answer choices.  
+- Server randomly selects a set number of questions for each client (e.g., 5).  
+- Final score is calculated and sent back to the client.  
+- Clients can run on the same machine or across different machines on the same network.  
+
+---
+
+## 📂 Project Structure
+
