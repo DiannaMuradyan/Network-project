@@ -23,4 +23,29 @@ This project demonstrates concepts of **socket programming**, **multithreading**
 ---
 
 ## 📂 Project Structure
+.
+├── server.c        # Server logic (sockets, threading, quiz handling)
+├── servermain.c    # Main entry point for server
+├── client.c        # Client logic (connect, send answers, receive results)
+├── clientmain.c    # Main entry point for client
+├── quiz.txt        # Quiz questions & answers (editable)
+└── README.md       # Documentation
 
+
+---
+
+## 🏗️ Compilation
+
+Open two different terminals for server and client.  
+
+### Compile Server
+```bash
+gcc -o server server.c servermain.c -lpthread
+gcc -o client client.c clientmain.c
+
+By default, the client connects to 127.0.0.1 (localhost).
+To connect from another PC on the same network:
+Run ifconfig (Linux/Mac) or ipconfig (Windows) on the server machine.
+Find the local IP address (e.g., 192.168.x.x).
+Update the IP address in client.c before compiling.
+```
